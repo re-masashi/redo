@@ -1,0 +1,20 @@
+{
+  "success": true,
+  "data": {
+    "songs": {
+      "results": [
+      ]
+    },
+    "albums": {
+      "results": []
+    },
+    "artists": {
+      "results": [],
+      "position": 5
+    },
+    "playlists": {
+      "results": [],
+      "position": 1
+    }
+  }
+}
