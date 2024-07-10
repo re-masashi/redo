@@ -61,9 +61,7 @@ Array.prototype.equals = function (array) {
 Object.defineProperty(Array.prototype, "equals", {enumerable: false});
 
 function decodeHTML(html) {
-    var txt = document.createElement("textarea");
-    txt.innerHTML = html;
-    return txt.value;
+    return html // todo
 }
 
 export default function TabLayout() {
@@ -117,13 +115,13 @@ export default function TabLayout() {
         await TrackPlayer.skip(useQueueStore.getState().queueIndex)
         await TrackPlayer.seekTo(useQueueStore.getState().currentTime)
 
-        console.log(progress)
+        // console.log(progress)
       }
 
       setIsPlayerReady(isSetup);
       let index = useQueueStore.getState().queueIndex;
       let song = useQueueStore.getState().queue[index]
-      console.log(song)
+      // console.log(song)
       // setQueueIndex(index);
       setSongName(song.title)
       setArtists(song.artists)
@@ -140,7 +138,7 @@ export default function TabLayout() {
     }
     let index = await TrackPlayer.getCurrentTrack();
     let song = myQueue[index]
-    console.log(song, index)
+    // console.log(song, index)
     setQueueIndex(index);
     setSongName(song.title)
     setArtists(song.artists)
@@ -296,7 +294,21 @@ export default function TabLayout() {
                 lineHeight: 22,
                 color: "white",
               }}
-            >{artists.primary.map(v=>v.name).join(', ').slice(0,14)+((artists.primary.map(v=>v.name).join(', ').length)>14?"...":"")}</ThemedText>
+            >
+            {
+              artists.primary?(artists.primary
+                .map(v=>v.name)
+                .join(', ')
+                .slice(0,14)+
+              (
+                (artists.primary
+                  .map(v=>v.name)
+                  .join(', ')
+                  .length
+                )>14?"...":""
+              )):""
+            }
+            </ThemedText>
           </Pressable>
           <ThemedView style={{ 
             marginLeft: "auto",

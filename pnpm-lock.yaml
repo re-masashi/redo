@@ -68,6 +68,9 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
+      metro:
+        specifier: ^0.80.9
+        version: 0.80.9
       react:
         specifier: 18.2.0
         version: 18.2.0

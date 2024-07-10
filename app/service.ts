@@ -23,6 +23,7 @@ export async function setupPlayer() {
     await TrackPlayer.getCurrentTrack();
     isSetup = true;
     await TrackPlayer.setRepeatMode(RepeatMode.Queue);
+    await playbackService()
   }
   catch {
     await TrackPlayer.setupPlayer();
@@ -47,6 +48,7 @@ export async function setupPlayer() {
       progressUpdateEventInterval: 1,
     });
     await TrackPlayer.setRepeatMode(RepeatMode.Queue);
+    await playbackService()
     isSetup = true;
   }
   finally {
@@ -60,6 +62,11 @@ export async function addTracks(queue) {
 
 export async function playbackService() {
   // TODO: Attach remote event handlers
+  TrackPlayer.addEventListener(Event.RemotePlay, () => TrackPlayer.play());
+  TrackPlayer.addEventListener(Event.RemotePause, () => TrackPlayer.pause());
+  TrackPlayer.addEventListener(Event.RemotePrevious, () => TrackPlayer.skipToPrevious());
+  TrackPlayer.addEventListener(Event.RemoteNext, () => TrackPlayer.skipToNext());
+  TrackPlayer.addEventListener(Event.RemoteSeek, ({position}) => TrackPlayer.seekTo(position));
 }
 
 export async function loadSong(id){
@@ -76,7 +83,8 @@ export async function loadSong(id){
     artist: [...song.artists.primary.map(v=>v.name), ...song.artists.featured.map(v=>v.name)].join(", "),
     artists: song.artists,
     images: images,
-    image: images[2].url
+    image: images[2].url,
+    artwork: images[2].url
   }])
   setSongName(song.name)
   setArtists(song.artists)
@@ -93,10 +101,11 @@ export async function loadSong(id){
     url: audio,
     title: song.name,
     duration: song.duration,
-    artist: [...song.artists.primary, ...song.artists.featured].join(", "),
+    artist: [...song.artists.primary.map(v=>v.name), ...song.artists.featured.map(v=>v.name)].join(", "),
     artists: song.artists,
     images: images,
-    image: images[2].url
+    image: images[2].url,
+    artwork: images[2].url
   }])
   await TrackPlayer.play()
 }
@@ -121,7 +130,8 @@ export async function loadAlbum(id){
       artist: [...[...song.artists.primary].map(v=>v.name), ...[...song.artists.featured].map(v=>v.name)].join(", "),
       artists: song.artists,
       images: images,
-      image: images[2].url
+      image: images[2].url,
+      artwork: images[2].url
     }
   })
 

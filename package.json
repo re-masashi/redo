@@ -9,7 +9,8 @@
     "ios": "expo run:ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "ba": "expo build:android -t apk"
   },
   "jest": {
     "preset": "jest-expo"
@@ -35,6 +36,7 @@
     "expo-system-ui": "~3.0.7",
     "expo-web-browser": "~13.0.3",
     "lodash": "^4.17.21",
+    "metro": "^0.80.9",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.74.3",
@@ -60,5 +62,9 @@
     "react-test-renderer": "18.2.0",
     "typescript": "~5.3.3"
   },
-  "private": true
+  "private": true,
+  "android": {
+    "package": "com.yourcompany.yourappname",
+    "versionCode": 1
+  }
 }

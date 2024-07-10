@@ -8,9 +8,7 @@ import useQueueStore from "../queueStore"
 
 
 function decodeHTML(html) {
-    var txt = document.createElement("textarea");
-    txt.innerHTML = html;
-    return txt.value;
+    return html // todo
 }
 
 export default function Controls() {

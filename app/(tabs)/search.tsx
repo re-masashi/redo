@@ -9,13 +9,13 @@ import { ThemedView } from '@/components/ThemedView';
 import mockData from '@/assets/mock-data.json';
 import {loadSong, loadAlbum} from "../service.ts"
 
-import { throttle } from "lodash";
+import { debounce } from "lodash";
 
 function decodeHTML(html) {
-    var txt = document.createElement("textarea");
-    txt.innerHTML = html;
-    return txt.value;
+    return html //todo
 }
+
+console.log("ok")
 
 String.prototype.truncate = String.prototype.truncate || 
 function ( n, useWordBoundary ){
@@ -117,11 +117,11 @@ export default function search() {
   let [playlists, setPlaylists] = useState([]);
   let [name, setName] = useState("");
 
-  const throttled = useRef(throttle(async ()=>{
+  const throttled = useRef(debounce(async ()=>{
     // console.log(name)
     search(name)
     // console.log(songs)
-  }, 1300, 1000))
+  }, 1300))
 
   useEffect(()=>{throttled.current(name)}, [name])
 
@@ -194,10 +194,11 @@ export default function search() {
             marginTop: 20,
           }}
           value={name}
-          onChange={
+          onChangeText={
             async e=>{
-              setName(e.target.value)
-              search(e.target.value)
+              console.log(e)
+              setName(e)
+              search(e)
             } //throttled.current(e)
           }
         />
@@ -236,7 +237,7 @@ const styles = StyleSheet.create({
   image: {
     width: 50,
     height: 50,
-    backgroundColor: '#0553',
+    backgroundColor: '#055300',
     borderRadius: 10.
   },
 })
